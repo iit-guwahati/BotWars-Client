@@ -1,5 +1,6 @@
 import httplib, urllib
 import base64
+import os
 
 class BotWarsServer:
 
@@ -11,13 +12,38 @@ class BotWarsServer:
 		params["teamname"]=teamname
 		params["teampassword"]=teampassword
 		params["problemnumber"]=problemnumber
-		params["filename"]=filename
+		params["filename"]=filename.split(os.sep)[-1]
 		program=open(filename)
 		programData=program.read()
 		params["filedata"]=base64.b64encode(programData)
 		headers= {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
-		self.connection.request("POST", "/dump", urllib.urlencode(params), headers)
+		self.connection.request("POST", "/submit", urllib.urlencode(params), headers)
 		response = self.connection.getresponse()
+		print "Solution sent. Response:-"
+		print "Status:", response.status
+		print "Body:", response.read()
+
+	def ask(self, teamname, teampassword, problemnumber, doubt):
+		params={}
+		params["teamname"]=teamname
+		params["teampassword"]=teampassword
+		params["problemnumber"]=problemnumber
+		params["doubt"]=doubt
+		headers= {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
+		self.connection.request("POST", "/doubt", urllib.urlencode(params), headers)
+		response = self.connection.getresponse()
+		print "Doubt sent. Response:-"
+		print "Status:", response.status
+		print "Body:", response.read()
+
+	def getScores(self, teamname, teampassword):
+		params={}
+		params["teamname"]=teamname
+		params["teampassword"]=teampassword
+		headers= {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
+		self.connection.request("POST", "/scores", urllib.urlencode(params), headers)
+		response = self.connection.getresponse()
+		print "Score request sent. Response:-"
 		print "Status:", response.status
 		print "Body:", response.read()
 
