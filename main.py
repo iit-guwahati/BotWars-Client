@@ -8,7 +8,8 @@ usage='''
 where command+ is one of:
 	submit <problem number> <filename>
 	ask <problem number> <doubt>
-	scores
+	leaderboard
+	score
 '''
 
 def main(args):
@@ -48,8 +49,11 @@ def main(args):
 		doubt = reduce(lambda x,y: x+" "+y, args[6:])
 		server.ask(teamName, teamPassword, problemNumber, doubt)
 
-	elif args[4]=="scores":
-		server.getScores(teamName, teamPassword)
+	elif args[4]=="leaderboard":
+		server.getLeaderboard(teamName, teamPassword)
+
+	elif args[4]=="score":
+		server.getScore(teamName, teamPassword)
 
 if __name__=="__main__":
 	if len(sys.argv)<6:

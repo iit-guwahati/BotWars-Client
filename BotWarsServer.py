@@ -9,6 +9,7 @@ class BotWarsServer:
 
 	def submit(self, teamname, teampassword, problemnumber, filename):
 		params = {}
+		params["type"]="submit"
 		params["teamname"]=teamname
 		params["teampassword"]=teampassword
 		params["problemnumber"]=problemnumber
@@ -25,6 +26,7 @@ class BotWarsServer:
 
 	def ask(self, teamname, teampassword, problemnumber, doubt):
 		params={}
+		params["type"]="doubt"
 		params["teamname"]=teamname
 		params["teampassword"]=teampassword
 		params["problemnumber"]=problemnumber
@@ -36,12 +38,25 @@ class BotWarsServer:
 		print "Status:", response.status
 		print "Body:", response.read()
 
-	def getScores(self, teamname, teampassword):
+	def getLeaderboard(self, teamname, teampassword):
 		params={}
+		params["type"]="leaderboard"
 		params["teamname"]=teamname
 		params["teampassword"]=teampassword
 		headers= {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
-		self.connection.request("POST", "/scores", urllib.urlencode(params), headers)
+		self.connection.request("POST", "/leaderboard", urllib.urlencode(params), headers)
+		response = self.connection.getresponse()
+		print "Score request sent. Response:-"
+		print "Status:", response.status
+		print "Body:", response.read()
+
+	def getScore(self, teamname, teampassword):
+		params={}
+		params["type"]="score"
+		params["teamname"]=teamname
+		params["teampassword"]=teampassword
+		headers= {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
+		self.connection.request("POST", "/score", urllib.urlencode(params), headers)
 		response = self.connection.getresponse()
 		print "Score request sent. Response:-"
 		print "Status:", response.status
