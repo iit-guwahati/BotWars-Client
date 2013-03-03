@@ -55,6 +55,10 @@ def main(args):
 	elif args[4]=="score":
 		server.getScore(teamName, teamPassword)
 
+	else:
+		print usage
+		return
+
 if __name__=="__main__":
 	if len(sys.argv)<6:
 		print usage
