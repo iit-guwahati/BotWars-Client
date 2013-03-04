@@ -2,7 +2,7 @@ Utility
 --------
 
 This client-side tool is meant to interact with the BotWars Server 
-(https://github.com/WebAndCodingClub-IITGuwahati/BotWars-Server). This provides
+[https://github.com/WebAndCodingClub-IITGuwahati/BotWars-Server]. This provides
 an interface to submit files corresponding to particular problems, view score
 gained by all entries and to check the leaderboard.
 
